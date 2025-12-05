@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 th:text="'Speed:' + ${speed}"></h1>
+    <img th:if="${speed > 50}" src="/images/slow-down.png" alt="" width="200" />
+    <img
+      th:unless="${speed > 50}"
+      src="/images/speed-limit-50.png"
+      alt=""
+      width="200"
+    />
+  </body>
+</html>
