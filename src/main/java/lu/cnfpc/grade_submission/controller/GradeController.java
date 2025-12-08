@@ -25,13 +25,12 @@ public class GradeController {
         this.studentService = studentService;
     }
 
-
     // Get me the form for the root path/route /
     @GetMapping("/")
     public String getForm(Model model, @RequestParam(required = false) String id) {
         // pass the new or existing student grade object to the model
         model.addAttribute("grade", gradeService.getGradeByID(id));
-        model.addAttribute("students", studentService.getAllStudents());
+        model.addAttribute("students", studentService.getStudents());
         return "form";
     }
 
@@ -39,7 +38,7 @@ public class GradeController {
     @PostMapping("/handleSubmit")
     public String submitForm(Grade grade) {
         // add a new grade if it doesn't already exist
-        Student student = studentService.getStudentById(grade.getStudentId());
+        Student student = studentService.getStudentbyId(grade.getStudentId());
         grade.setName(student.getFirstName());
         gradeService.submitGrade(grade);
         return "redirect:/grades";
@@ -59,11 +58,5 @@ public class GradeController {
         redirectAttributes.addFlashAttribute("message","Grade deleted");
         return "redirect:/grades";
     }
-    
-
-
-
-
-    
     
 }

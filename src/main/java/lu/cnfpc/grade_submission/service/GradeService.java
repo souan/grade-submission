@@ -33,12 +33,10 @@ public class GradeService {
         return -1;
     }
 
-
     // Get Grade by Id
     public Grade getGradeByID(String id){
         return getGradeIndex(id) == -1 ? new Grade() : gradeRepository.getGrade(getGradeIndex(id));
     }
-
 
     public void submitGrade(Grade grade){
         if(getGradeIndex(grade.getId()) == -1){
@@ -48,7 +46,6 @@ public class GradeService {
         }
     }
 
-
     public List<Grade> getAllGrades(){
         return gradeRepository.getAll();
     }
@@ -57,5 +54,4 @@ public class GradeService {
         gradeRepository.remove(getGradeIndex(id));
     }
 
-    
 }

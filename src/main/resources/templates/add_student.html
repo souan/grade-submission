@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Student</title>
+    <link rel="stylesheet" th:href="@{/form.css}" />
+  </head>
+  <body>
+    <div class="topnav">
+      <a th:href="@{/}">Add Grade</a>
+      <a th:href="@{/grades}">Grades</a>
+      <a th:href="@{/addstudent}">Add Student</a>
+      <a th:href="@{/students}">Students</a>
+    </div>
+    <div class="container">
+      <h2>Add Student</h2>
+      <form method="post" th:object="${student}" th:action="@{/studentSubmit}">
+        <input type="text" placeholder="First Name" th:field="*{firstName}" />
+        <p style="color: red" th:errors="*{firstName}"></p>
+        <input type="text" placeholder="Last Name" th:field="*{lastName}" />
+        <p style="color: red" th:errors="*{lastName}"></p>
+        <input type="hidden" th:field="*{studentId}" />
+        <br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  </body>
+</html>

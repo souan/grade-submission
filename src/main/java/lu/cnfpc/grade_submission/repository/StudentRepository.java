@@ -1,8 +1,6 @@
 package lu.cnfpc.grade_submission.repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -10,18 +8,34 @@ import lu.cnfpc.grade_submission.model.Student;
 
 @Repository
 public class StudentRepository {
+    //Student datastore
+    private ArrayList<Student> students = new ArrayList<>();
 
-    private List<Student> students = new ArrayList<>(Arrays.asList(
-        new Student("Victor","Dupond"),
-        new Student("Joe","Doe")
-    ));
+    //CRUD Operations that are on the Data Layer
 
-    public List<Student> getAll(){
+    //get all students
+    public ArrayList<Student> getStudents(){
         return students;
     }
 
-    public Student getOne(int index){
+    //get student by index
+    public Student getStudent(int index){
         return students.get(index);
     }
-    
+
+    //add new student
+    public void addStudent(Student student){
+        students.add(student);
+    }
+
+    //Update existing student
+    public void updateStudent(Student student, int index){
+        students.get(index).setFirstName(student.getFirstName());
+        students.get(index).setLastName(student.getLastName());
+    }
+
+    //Remove student
+    public void removeStudent(Student student){
+        students.remove(student);
+    }
 }

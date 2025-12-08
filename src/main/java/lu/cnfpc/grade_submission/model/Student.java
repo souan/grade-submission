@@ -2,31 +2,19 @@ package lu.cnfpc.grade_submission.model;
 
 import java.util.UUID;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Student {
-    private String studentId;
+    @NotBlank(message= "Firstname cannot be empty!")
     private String firstName;
-    private String LastName;
-
-
-    public Student(String firstName, String LastName) {
-        this.studentId = UUID.randomUUID().toString();
-        this.firstName = firstName;
-        this.LastName = LastName;
-    }
-
+    @NotBlank(message= "Lastname cannot be empty!")
+    private String lastName;
+    private String studentId;
 
     public Student() {
-        this.studentId = UUID.randomUUID().toString();
+        studentId = UUID.randomUUID().toString();
     }
 
-
-    public String getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
 
     public String getFirstName() {
         return this.firstName;
@@ -37,13 +25,19 @@ public class Student {
     }
 
     public String getLastName() {
-        return this.LastName;
+        return this.lastName;
     }
 
-    public void setLastName(String LastName) {
-        this.LastName = LastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
+    public String getStudentId() {
+        return this.studentId;
+    }
 
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
     
 }
