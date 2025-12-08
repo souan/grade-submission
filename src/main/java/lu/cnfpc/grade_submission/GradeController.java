@@ -13,18 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GradeController {
 
     //ArrayList of grade POJO objects, will be replaced by Database later
-    List<Grade> studentGrades = new ArrayList<>(Arrays.asList(
-        new Grade("Victor","Mathematics","15"),
-        new Grade("Bernard","German","10"),
-        new Grade("Jean","French","9")
-    ));
+    List<Grade> studentGrades = new ArrayList<>();
 
     /*
     Helper Function to find corresponding index.
      */
-    public Integer getGradeIndex(String name){
+    public Integer getGradeIndex(String id){
         for (int i = 0; i < studentGrades.size(); i++){
-            if(studentGrades.get(i).getName().equals(name)){
+            if(studentGrades.get(i).getId().equals(id)){
                 return i;
             }
         }
@@ -34,9 +30,9 @@ public class GradeController {
 
     // Get me the form for the root path/route /
     @GetMapping("/")
-    public String getForm(Model model, @RequestParam(required = false) String name) {
+    public String getForm(Model model, @RequestParam(required = false) String id) {
         // pass the new or existing student grade object to the model
-        model.addAttribute("grade", getGradeIndex(name) == -1 ? new Grade() : studentGrades.get(getGradeIndex(name)));
+        model.addAttribute("grade", getGradeIndex(id) == -1 ? new Grade() : studentGrades.get(getGradeIndex(id)));
         return "form";
     }
 
@@ -44,10 +40,10 @@ public class GradeController {
     @PostMapping("/handleSubmit")
     public String submitForm(Grade grade) {
         // add a new grade if it doesn't already exist
-        if(getGradeIndex(grade.getName()) == -1){
+        if(getGradeIndex(grade.getId()) == -1){
             studentGrades.add(grade);
         }else{
-            studentGrades.set(getGradeIndex(grade.getName()), grade);
+            studentGrades.set(getGradeIndex(grade.getId()), grade);
         }
         return "redirect:/grades";
     }
