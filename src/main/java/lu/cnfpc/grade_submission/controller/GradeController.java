@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lu.cnfpc.grade_submission.model.Grade;
-import lu.cnfpc.grade_submission.repository.GradeRepository;
 import lu.cnfpc.grade_submission.service.GradeService;
 
 @Controller
