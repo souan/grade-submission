@@ -20,8 +20,8 @@ public class GradeService {
 
     //Methods that interact with gradeRepository
 
-        /*
-    Helper Function to find corresponding index.
+    /*
+        Helper Function to find corresponding index.
      */
     private Integer getGradeIndex(String id){
         for (int i = 0; i < gradeRepository.getAll().size(); i++){
