@@ -53,5 +53,9 @@ public class GradeService {
         return gradeRepository.getAll();
     }
 
+    public void remove(String id){
+        gradeRepository.remove(getGradeIndex(id));
+    }
+
     
 }

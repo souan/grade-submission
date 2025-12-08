@@ -35,4 +35,9 @@ public class GradeRepository {
     public void updateGrade(Grade grade, int index){
         studentGrades.set(index, grade);
     }
+
+    //remove a grade
+    public void remove(int index){
+        studentGrades.remove(index);
+    }
 }
