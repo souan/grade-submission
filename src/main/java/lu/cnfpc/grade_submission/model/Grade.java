@@ -1,4 +1,4 @@
-package lu.cnfpc.grade_submission;
+package lu.cnfpc.grade_submission.model;
 
 import java.util.UUID;
 

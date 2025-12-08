@@ -1,4 +1,4 @@
-package lu.cnfpc.grade_submission;
+package lu.cnfpc.grade_submission.controller;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import lu.cnfpc.grade_submission.model.Record;
 
 
 @Controller
