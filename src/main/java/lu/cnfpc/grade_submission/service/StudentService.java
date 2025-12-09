@@ -1,13 +1,16 @@
 package lu.cnfpc.grade_submission.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+import lu.cnfpc.grade_submission.exception.StudentNotFoundException;
 import lu.cnfpc.grade_submission.model.Student;
 import lu.cnfpc.grade_submission.repository.StudentRepository;
 
 @Service
+@Transactional
 public class StudentService {
 
     private StudentRepository studentRepository;
@@ -16,47 +19,22 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student getStudentbyId(String student_id){
-        Student student;
-        // if the ID isn't found in the ArrayList, means a new student!
-        if(getStudentIndex(student_id) == -1){
-            // then create new student object
-            student = new Student();
-        }else{
-            student = studentRepository.getStudent(getStudentIndex(student_id));
-        }
-        return student;
-    }
-
-    // Helper function to find index of a student grade
-    public Integer getStudentIndex(String id){
-        for(int i = 0; i < studentRepository.getStudents().size() ; i++){
-            if(studentRepository.getStudent(i).getStudentId().equals(id)){
-                return i;
-            }
-        }
-        //if not found return a negative integer
-        return -1;
+    public Student getStudentbyId(Long student_id){
+        return studentRepository.findById(student_id)
+        .orElseThrow(() -> new StudentNotFoundException("Student not found with id: " + student_id));
     }
 
     public void submitStudent(Student student){
-        //business logic for adding or updating a student
-        if(getStudentIndex(student.getStudentId()) == -1){
-            // adding  student to the students ArrayList
-            studentRepository.addStudent(student);
-        }else{
-            // updating
-            studentRepository.updateStudent(student, getStudentIndex(student.getStudentId()));
-        }
+        studentRepository.save(student);
     }
 
-    public ArrayList<Student> getStudents(){
-        return studentRepository.getStudents();
+    public List<Student> getStudents(){
+        return studentRepository.findAll();
     }
 
     // service to delete student by id
-    public void deleteStudent(String studentId){
-        studentRepository.removeStudent(getStudentbyId(studentId));
+    public void deleteStudent(Long studentId){
+        studentRepository.deleteById(studentId);
     }
         
 }

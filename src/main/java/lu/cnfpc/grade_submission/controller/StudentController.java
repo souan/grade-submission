@@ -32,8 +32,11 @@ public class StudentController {
 
     // A handler method to get the student form
     @GetMapping("/addstudent")
-    public String getStudentForm(Model model, @RequestParam(required = false) String studentId) {
-        model.addAttribute("student",studentService.getStudentbyId(studentId));
+    public String getStudentForm(Model model, @RequestParam(required = false) Long studentId) {
+
+        Student student = (studentId != null) ? studentService.getStudentbyId(studentId) : new Student();
+        
+        model.addAttribute("student", student);
         return "add_student";
     }
 
@@ -46,7 +49,7 @@ public class StudentController {
 
     // A handler method that handles a delete student request
     @GetMapping("/delete-student")
-    public String getMethodName(@RequestParam String studentId) {
+    public String getMethodName(@RequestParam Long studentId) {
         studentService.deleteStudent(studentId);
         return "redirect:/students";
     } 

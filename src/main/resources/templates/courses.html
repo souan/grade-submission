@@ -1,7 +1,7 @@
 <!DOCTYPE >
 <html>
   <head>
-    <title>Grades</title>
+    <title>Courses</title>
     <link rel="stylesheet" th:href="@{/grades.css}" />
   </head>
   <body>
@@ -14,31 +14,23 @@
 
     <div class="container">
       <p th:if="${message}" th:text="${message}"></p>
-      <h2>Grades</h2>
+      <h2>Courses</h2>
       <table id="table">
         <tr>
-          <th>Student</th>
           <th>Subject</th>
-          <th>Score</th>
         </tr>
-        <tr th:each="grade : ${grades}">
-          <td
-            th:text="${grade.student.firstName} + ' ' + ${grade.student.lastName}"
-          >
-            Andre
-          </td>
-          <td th:text="${grade.course.name}">Spring Boot</td>
-          <td th:text="${grade.score}">20</td>
-          <td>
+        <tr th:each="course : ${courses}">
+          <td th:text="${course.name}"></td>
+          <!-- <td>
             <a class="update" role="button" th:href="@{/(id=${grade.id})}"
               >Update</a
             >
-          </td>
-          <td>
+          </td> -->
+          <!-- <td>
             <a class="update" role="button" th:href="@{/delete(id=${grade.id})}"
               >Delete</a
             >
-          </td>
+          </td> -->
         </tr>
       </table>
     </div>

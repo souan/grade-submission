@@ -14,7 +14,7 @@
     <div class="container">
       <h2>Grade Portal</h2>
       <form method="post" th:object="${grade}" th:action="@{/handleSubmit}">
-        <select id="student" name="studentId" th:field="*{studentId}">
+        <select id="student" name="student" th:field="*{student}">
           <option value="" disabled selected>Select a student</option>
           <option
             th:each="student : ${students}"
@@ -23,7 +23,14 @@
           ></option>
         </select>
         <input type="text" placeholder="Score" th:field="*{score}" />
-        <input type="text" placeholder="Subject" th:field="*{subject}" />
+        <select id="course" name="course" th:field="*{course}">
+          <option value="" disabled selected>Select a course</option>
+          <option
+            th:each="course : ${courses}"
+            th:value="${course.id}"
+            th:text="${course.name}"
+          ></option>
+        </select>
         <input type="hidden" th:field="*{id}" />
         <br /><br />
         <input type="submit" value="Submit" />

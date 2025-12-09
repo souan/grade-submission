@@ -1,62 +1,49 @@
 package lu.cnfpc.grade_submission.model;
 
-import java.util.UUID;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "grades")
 public class Grade {
-    private String name;
-    private String studentId;
-    private String subject;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="course_id", nullable = false)
+    private Course course;
+
     private String score;
-    private String id;
 
-
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // public Grade(String name, String subject, String score) {
-    //     this.id = UUID.randomUUID().toString();
-    //     this.name = name;
-    //     this.subject = subject;
-    //     this.score = score;
-    // }
+    //Each grade is associated with one and only one student
+    //FetchType.LAZY is used to optimize performance
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="student_id", nullable = false)
+    private Student student;
 
 
     // New grade constructor using the html form
     public Grade() {
-        this.id = UUID.randomUUID().toString();
     }
 
 
-    public String getId() {
-        return this.id;
+
+    public Course getCourse() {
+        return this.course;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
-    public String getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-
-    public String getSubject() {
-        return this.subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
 
     public String getScore() {
         return this.score;
@@ -65,5 +52,22 @@ public class Grade {
     public void setScore(String score) {
         this.score = score;
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Student getStudent() {
+        return this.student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
 
 }
