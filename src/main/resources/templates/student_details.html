@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Details</title>
+    <link rel="stylesheet" th:href="@{/grades.css}" />
+  </head>
+  <body>
+    <div class="topnav">
+      <a th:href="@{/}">Add Grade</a>
+      <a th:href="@{/grades}">Grades</a>
+      <a th:href="@{/addstudent}">Add Student</a>
+      <a th:href="@{/students}">Students</a>
+      <a th:href="@{/addcourse}">Add Course</a>
+      <a th:href="@{/courses}">Courses</a>
+    </div>
+
+    <div class="container">
+      <p th:if="${message}" class="message" th:text="${message}"></p>
+
+      <h2>
+        Student:
+        <span th:text="${student.firstName} + ' ' + ${student.lastName}"></span>
+      </h2>
+
+      <h3>Enrolled Courses</h3>
+      <table id="table" th:if="${not #lists.isEmpty(enrolledCourses)}">
+        <tr>
+          <th>Course Name</th>
+          <th>Action</th>
+        </tr>
+        <tr th:each="course : ${enrolledCourses}">
+          <td th:text="${course.name}"></td>
+          <td>
+            <a
+              class="unenroll"
+              role="button"
+              th:href="@{/unenroll(studentId=${student.studentId}, courseId=${course.id})}"
+              >Unenroll</a
+            >
+          </td>
+        </tr>
+      </table>
+      <p th:if="${#lists.isEmpty(enrolledCourses)}" class="empty-state">
+        No courses enrolled yet.
+      </p>
+
+      <hr class="divider" />
+
+      <h3>Enroll in a Course</h3>
+      <form method="post" th:action="@{/enroll}" class="enroll-form">
+        <input type="hidden" name="studentId" th:value="${student.studentId}" />
+        <select name="courseId" required>
+          <option value="" disabled selected>Select a course</option>
+          <option
+            th:each="course : ${availableCourses}"
+            th:value="${course.id}"
+            th:text="${course.name}"
+            th:disabled="${#sets.contains(enrolledCourses, course)}"
+          ></option>
+        </select>
+        <input type="submit" value="Enroll" />
+      </form>
+
+      <a th:href="@{/students}" class="back-link">← Back to Students</a>
+    </div>
+  </body>
+</html>

@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lu.cnfpc.grade_submission.exception.GradeNotFoundException;
 import lu.cnfpc.grade_submission.model.Grade;
 import lu.cnfpc.grade_submission.repository.GradeRepository;
 
 @Service
+@Transactional
 public class GradeService {
 
     private final GradeRepository gradeRepository;

@@ -1,6 +1,7 @@
 package lu.cnfpc.grade_submission.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -9,6 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -31,8 +35,17 @@ public class Student {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long studentId;
 
-    @OneToMany(mappedBy ="student", cascade = CascadeType.REMOVE, orphanRemoval = true )
+    @OneToMany(mappedBy ="student")
     private List<Grade> grades = new ArrayList<>();
+
+    // Many-to-Many relationship with Course
+    @ManyToMany
+    @JoinTable(
+        name = "enrollment",  // Name of the join table
+        joinColumns = @JoinColumn(name = "student_id"),  // Foreign key for Student
+        inverseJoinColumns = @JoinColumn(name = "course_id")  // Foreign key for Course
+    )
+    private List<Course> courses = new ArrayList<>();
 
     public Student() {
     }
@@ -59,6 +72,33 @@ public class Student {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public List<Grade> getGrades() {
+        return this.grades;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
+    }
+
+    public List<Course> getCourses() {
+        return this.courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    // Helper methods to manage the relationship
+    public void addCourse(Course course) {
+        this.courses.add(course);
+        course.getStudents().add(this);
+    }
+
+    public void removeCourse(Course course) {
+        this.courses.remove(course);
+        course.getStudents().remove(this);
     }
 
     

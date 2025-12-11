@@ -1,4 +1,4 @@
-<!DOCTYPE >
+<!DOCTYPE html>
 <html>
   <head>
     <title>Courses</title>
@@ -10,6 +10,8 @@
       <a th:href="@{/grades}">Grades</a>
       <a th:href="@{/addstudent}">Add Student</a>
       <a th:href="@{/students}">Students</a>
+      <a th:href="@{/addcourse}">Add Course</a>
+      <a th:href="@{/courses}">Courses</a>
     </div>
 
     <div class="container">
@@ -18,19 +20,35 @@
       <table id="table">
         <tr>
           <th>Subject</th>
+          <th>Enrolled Students</th>
         </tr>
         <tr th:each="course : ${courses}">
           <td th:text="${course.name}"></td>
-          <!-- <td>
-            <a class="update" role="button" th:href="@{/(id=${grade.id})}"
+          <td th:text="${course.students.size()}"></td>
+          <td>
+            <a
+              class="update"
+              role="button"
+              th:href="@{/course-details(courseId=${course.id})}"
+              >View</a
+            >
+          </td>
+          <td>
+            <a
+              class="update"
+              role="button"
+              th:href="@{/addcourse(courseId=${course.id})}"
               >Update</a
             >
-          </td> -->
-          <!-- <td>
-            <a class="update" role="button" th:href="@{/delete(id=${grade.id})}"
+          </td>
+          <td>
+            <a
+              class="update"
+              role="button"
+              th:href="@{/delete-course(courseId=${course.id})}"
               >Delete</a
             >
-          </td> -->
+          </td>
         </tr>
       </table>
     </div>

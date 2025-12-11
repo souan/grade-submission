@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Add Student</title>
+    <title>Add Course</title>
     <link rel="stylesheet" th:href="@{/form.css}" />
   </head>
   <body>
@@ -14,13 +14,11 @@
       <a th:href="@{/courses}">Courses</a>
     </div>
     <div class="container">
-      <h2>Add Student</h2>
-      <form method="post" th:object="${student}" th:action="@{/studentSubmit}">
-        <input type="text" placeholder="First Name" th:field="*{firstName}" />
-        <p style="color: red" th:errors="*{firstName}"></p>
-        <input type="text" placeholder="Last Name" th:field="*{lastName}" />
-        <p style="color: red" th:errors="*{lastName}"></p>
-        <input type="hidden" th:field="*{studentId}" />
+      <h2>Add Course</h2>
+      <form method="post" th:object="${course}" th:action="@{/courseSubmit}">
+        <input type="text" placeholder="Course Name" th:field="*{name}" />
+        <p style="color: red" th:errors="*{name}"></p>
+        <input type="hidden" th:field="*{id}" />
         <br /><br />
         <input type="submit" value="Submit" />
       </form>
